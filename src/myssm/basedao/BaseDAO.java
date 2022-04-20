@@ -35,4 +35,45 @@ public abstract class BaseDAO<T> {
         return ConnUtil.getConn();
     }
 
+    protected void close(ResultSet rs, PreparedStatement psmt, Connection conn) {
+
+    }
+
+    // 给预处理命令对象设置参数
+    private void setParams(PreparedStatement psmt, Object... params) throws SQLException {
+        if (params != null && params.length > 0) {
+            for (int i = 0; i < params.length; i++) {
+                psmt.setObject(i + 1, params[i]);
+            }
+        }
+    }
+
+    // 执行更新，返回影响行数
+    protected int executeUpdate(String sql, Object... params) {
+        boolean insertFlag = false;
+        insertFlag = sql.trim().toUpperCase().startsWith("INSERT");
+
+        conn = getConn();
+        try {
+            if (insertFlag) {
+                psmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            } else {
+                psmt = conn.prepareStatement(sql);
+            }
+            setParams(psmt, params);
+            int count = psmt.executeUpdate();
+
+            if (insertFlag) {
+                rs = psmt.getGeneratedKeys();
+                if (rs.next()) {
+                    return ((Long)rs.getLong(1)).intValue();
+                }
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("BaseDAO executeUpdate 出错了");
+        }
+    }
+
 }

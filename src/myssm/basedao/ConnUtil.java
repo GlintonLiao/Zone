@@ -3,6 +3,7 @@ package myssm.basedao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.concurrent.Callable;
 
 public class ConnUtil {
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
@@ -24,5 +25,21 @@ public class ConnUtil {
         return null;
     }
 
-
+    public static Connection getConn() {
+        Connection conn = threadLocal.get();
+        if (conn == null) {
+            conn = createConn();
+            threadLocal.set(conn);
+        }
+        return threadLocal.get();
+    }
+    
+    public static void closeConn() throws SQLException {
+        Connection conn = threadLocal.get();
+        if (conn == null) return;
+        if (!conn.isClosed()) {
+            conn.close();
+            threadLocal.remove();
+        }
+    }
 }
