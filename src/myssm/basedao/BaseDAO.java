@@ -1,7 +1,6 @@
 package myssm.basedao;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.sql.*;
 
 public abstract class BaseDAO<T> {
@@ -74,6 +73,70 @@ public abstract class BaseDAO<T> {
             e.printStackTrace();
             throw new DAOException("BaseDAO executeUpdate 出错了");
         }
+    }
+
+    // 通过反射技术给 obj 的 property 属性赋予 propertyValue 的值
+    private void setValue(Object obj, String property, Object propertyValue) throws NoSuchFieldException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Class clazz = obj.getClass();
+
+        // 获取 property 这个字符串对应的属性名
+        // 比如 "fid"，就去找 obj 中的 fid 属性
+        Field field = clazz.getDeclaredField(property);
+        if (field != null) {
+
+            // 获取当前字段的类型名称
+            String typeName = field.getType().getName();
+
+            // 判断如果是自定义类型，则需要调用这个自定义类的带一个参数的构造方法
+            // 创建出这个自定义的实例对象，将这个对象赋予给这个属性
+            if (isMyType(typeName)) {
+                Class typeNameClass = Class.forName(typeName);
+                Constructor constructor = typeNameClass.getDeclaredConstructor(java.lang.Integer.class);
+                propertyValue = constructor.newInstance(propertyValue);
+            }
+            field.setAccessible(true);
+            field.set(obj, propertyValue);
+        }
+    }
+
+    private static boolean isNotMyType(String typeName) {
+        return "java.lang.Integer".equals(typeName)
+                || "java.lang.String".equals(typeName)
+                || "java.util.Date".equals(typeName)
+                || "java.sql.Date".equals(typeName);
+    }
+
+    private static boolean isMyType(String typeName) {
+        return !isNotMyType(typeName);
+    }
+
+    // 执行复杂查询，返回统计结果
+    protected Object[] executeComplexQuery(String sql, Object... params) {
+        conn = getConn();
+        try {
+            psmt = conn.prepareStatement(sql);
+            setParams(psmt, params);
+            rs = psmt.executeQuery();
+
+            // 通过 rs 可以获取结果集的元数据
+            // 元数据：比如有哪些列，什么类型，等等
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // 获取列数
+            int columnCount = rsmd.getColumnCount();
+            Object[] columnValueArr = new Object[columnCount];
+            // 解析 rs
+            if (rs.next()) {
+                for (int i = 0; i < columnCount; i++) {
+                    Object columnValue = rs.getObject(i + 1);
+                    columnValueArr[i] = columnValue;
+                }
+                return columnValueArr;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("BaseDAO executeComplexQuery 出错了");
+        }
+        return null;
     }
 
 }
