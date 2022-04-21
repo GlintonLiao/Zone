@@ -2,6 +2,8 @@ package myssm.basedao;
 
 import java.lang.reflect.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseDAO<T> {
     protected Connection conn;
@@ -139,4 +141,61 @@ public abstract class BaseDAO<T> {
         return null;
     }
 
+    // 执行查询，返回单个实体对象
+    protected T load(String sql, Object... params) {
+        conn = getConn();
+        try {
+            psmt = conn.prepareStatement(sql);
+            setParams(psmt, params);
+            rs = psmt.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // 获取列数
+            int columnCount = rsmd.getColumnCount();
+            Object[] columnValueArr = new Object[columnCount];
+            // 解析 rs
+            if (rs.next()) {
+                T entity = (T)entityClass.newInstance();
+                for (int i = 0; i < columnCount; i++) {
+                    String columnName = rsmd.getColumnName(i + 1);
+                    Object columnValue = rs.getObject(i + 1);
+                    setValue(entity, columnName, columnValue);
+                }
+                return entity;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("BaseDAO load 出错了");
+        }
+        return null;
+    }
+
+    // 执行查询，返回 List
+    protected List<T> executeQuery(String sql, Object... params) {
+        List<T> list = new ArrayList<>();
+        conn = getConn();
+        try {
+            psmt = conn.prepareStatement(sql);
+            setParams(psmt, params);
+            rs = psmt.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // 获取列数
+            int columnCount = rsmd.getColumnCount();
+            // 解析 rs
+            while (rs.next()) {
+                T entity = (T)entityClass.newInstance();
+                for (int i = 0; i < columnCount; i++) {
+                    String columnName = rsmd.getColumnLabel(i + 1);
+                    Object columnValue = rs.getObject(i + 1);
+                    setValue(entity, columnName, columnValue);
+                }
+                list.add(entity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("BaseDAO executeQuery 出错了");
+        }
+        return list;
+    }
 }
