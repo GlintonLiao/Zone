@@ -152,7 +152,6 @@ public abstract class BaseDAO<T> {
             ResultSetMetaData rsmd = rs.getMetaData();
             // 获取列数
             int columnCount = rsmd.getColumnCount();
-            Object[] columnValueArr = new Object[columnCount];
             // 解析 rs
             if (rs.next()) {
                 T entity = (T)entityClass.newInstance();

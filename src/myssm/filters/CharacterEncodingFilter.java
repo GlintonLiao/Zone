@@ -1,9 +1,9 @@
 package myssm.filters;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.annotation.WebInitParam;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpServletRequest;
 import myssm.util.StringUtil;
 
 import java.io.IOException;

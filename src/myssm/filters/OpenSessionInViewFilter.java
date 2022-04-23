@@ -1,7 +1,7 @@
 package myssm.filters;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import myssm.trans.TransactionManager;
 
 import java.io.IOException;
