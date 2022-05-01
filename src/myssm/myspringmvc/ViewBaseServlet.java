@@ -1,6 +1,7 @@
 package myssm.myspringmvc;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ public class ViewBaseServlet extends HttpServlet {
     private TemplateEngine templateEngine;
 
     @Override
-    public void init() {
+    public void init() throws ServletException {
 
         // 1. 获取 Servlet 对象
         ServletContext servletContext = this.getServletContext();
@@ -47,6 +48,9 @@ public class ViewBaseServlet extends HttpServlet {
         templateResolver.setCharacterEncoding("utf-8");
 
         // 4. 创建模版引擎对象
+        templateEngine = new TemplateEngine();
+
+        // 5. 给模板引擎对象设置模板解析器
         templateEngine.setTemplateResolver(templateResolver);
     }
 

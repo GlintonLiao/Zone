@@ -1,4 +1,4 @@
-package myzone.services;
+package myzone.service;
 
 import myzone.pojo.UserBasic;
 

@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
@@ -21,7 +20,7 @@ public class DispatcherServlet extends ViewBaseServlet{
 
     }
 
-    public void init() {
+    public void init() throws ServletException {
         super.init();
         //之前是在此处主动创建 IOC 容器的
         //现在优化为从 application 作用域去获取
@@ -110,7 +109,7 @@ public class DispatcherServlet extends ViewBaseServlet{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new DispatcherServletException("DispatchServlet 出错了");
+            throw new DispatcherServletException("DispatcherServlet 出错了");
         }
     }
 }

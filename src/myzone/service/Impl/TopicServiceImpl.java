@@ -1,9 +1,9 @@
-package myzone.services.Impl;
+package myzone.service.Impl;
 
 import myzone.dao.TopicDAO;
 import myzone.pojo.Topic;
 import myzone.pojo.UserBasic;
-import myzone.services.TopicService;
+import myzone.service.TopicService;
 
 import java.util.List;
 

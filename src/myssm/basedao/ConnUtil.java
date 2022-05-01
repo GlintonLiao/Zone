@@ -3,13 +3,13 @@ package myssm.basedao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.concurrent.Callable;
 
 public class ConnUtil {
+
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
-    public static final String DRIVER = "com.mysql.jdbc.Driver" ;
-    public static final String URL = "jdbc:mysql://localhost:3306/qqzonedb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+    public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    public static final String URL = "jdbc:mysql://localhost:3306/qqzonedb?useSSL=FALSE&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     public static final String USER = "root";
     public static final String PWD = "123456";
 
@@ -31,6 +31,7 @@ public class ConnUtil {
             conn = createConn();
             threadLocal.set(conn);
         }
+        System.out.println("已连接");
         return threadLocal.get();
     }
     

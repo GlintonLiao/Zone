@@ -1,8 +1,8 @@
-package myzone.services.Impl;
+package myzone.service.Impl;
 
 import myzone.dao.UserBasicDAO;
 import myzone.pojo.UserBasic;
-import myzone.services.UserBasicService;
+import myzone.service.UserBasicService;
 
 import java.util.ArrayList;
 import java.util.List;

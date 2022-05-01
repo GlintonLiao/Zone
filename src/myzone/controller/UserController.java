@@ -2,8 +2,8 @@ package myzone.controller;
 
 import myzone.pojo.Topic;
 import myzone.pojo.UserBasic;
-import myzone.services.TopicService;
-import myzone.services.UserBasicService;
+import myzone.service.TopicService;
+import myzone.service.UserBasicService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
