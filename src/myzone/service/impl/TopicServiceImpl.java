@@ -1,4 +1,4 @@
-package myzone.service.Impl;
+package myzone.service.impl;
 
 import myzone.dao.TopicDAO;
 import myzone.pojo.Topic;

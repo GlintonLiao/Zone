@@ -1,4 +1,4 @@
-package myzone.service.Impl;
+package myzone.service.impl;
 
 import myzone.dao.UserBasicDAO;
 import myzone.pojo.UserBasic;
