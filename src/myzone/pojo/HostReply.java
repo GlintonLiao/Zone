@@ -49,6 +49,10 @@ public class HostReply {
         this.reply = reply;
     }
 
+    public HostReply(Integer id) {
+        this.id = id;
+    }
+
     public HostReply() {
 
     }

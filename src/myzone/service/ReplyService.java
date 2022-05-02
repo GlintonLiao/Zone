@@ -12,4 +12,6 @@ public interface ReplyService {
     void addReply(Reply reply);
     // 删除指定的日志关联的所有回复
     void delReplyList(Topic topic);
+    //删除指定的回复
+    void delReply(Integer replyId);
 }

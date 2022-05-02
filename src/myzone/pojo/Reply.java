@@ -11,6 +11,13 @@ public class Reply {
 
     private HostReply hostReply; // 1 : 1
 
+    public Reply(String content, Date replyDate, UserBasic author, Topic topic) {
+        this.content = content;
+        this.replyDate = replyDate;
+        this.author = author;
+        this.topic = topic;
+    }
+
     public Integer getId() {
         return id;
     }
