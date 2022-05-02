@@ -83,4 +83,8 @@ public class UserBasic {
     public UserBasic() {
 
     }
+
+    public UserBasic(Integer id) {
+        this.id = id;
+    }
 }

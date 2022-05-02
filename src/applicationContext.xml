@@ -14,6 +14,9 @@
 <beans>
     <bean id="userBasicDAO" class="myzone.dao.impl.UserBasicDAOImpl"/>
     <bean id="topicDAO" class="myzone.dao.impl.TopicDAOImpl"/>
+    <bean id="replyDAO" class="myzone.dao.impl.ReplyDAOImpl"/>
+    <bean id="hostReplyDAO" class="myzone.dao.impl.HostReplyDAOImpl"/>
+
 
     <bean id="userBasicService" class="myzone.service.impl.UserBasicServiceImpl">
         <property name="userBasicDAO" ref="userBasicDAO"/>
@@ -21,12 +24,33 @@
 
     <bean id="topicService" class="myzone.service.impl.TopicServiceImpl">
         <property name="topicDAO" ref="topicDAO"/>
+        <property name="replyService" ref="replyService"/>
+        <property name="userBasicService" ref="userBasicService"/>
+    </bean>
+
+    <bean id="replyService" class="myzone.service.impl.ReplyServiceImpl">
+        <property name="replyDAO" ref="replyDAO"/>
+        <property name="hostReplyService" ref="hostReplyService"/>
+        <property name="userBasicService" ref="userBasicService"/>
+    </bean>
+
+    <bean id="hostReplyService" class="myzone.service.impl.HostReplyServiceImpl">
+        <property name="hostReplyDAO" ref="hostReplyDAO"/>
     </bean>
 
     <bean id="user" class="myzone.controller.UserController">
         <property name="userBasicService" ref="userBasicService"/>
         <property name="topicService" ref="topicService"/>
     </bean>
+
+    <bean id="topic" class="myzone.controller.TopicController">
+        <property name="topicService" ref="topicService"/>
+    </bean>
+
+    <bean id="reply" class="myzone.controller.ReplyController">
+        <property name="replyService" ref="replyService"/>
+    </bean>
+
     <bean id="page" class="myssm.myspringmvc.PageController"/>
 
 </beans>

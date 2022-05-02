@@ -59,6 +59,10 @@ public class Reply {
         this.hostReply = hostReply;
     }
 
+    public Reply(Integer id) {
+        this.id = id;
+    }
+
     public Reply() {
 
     }

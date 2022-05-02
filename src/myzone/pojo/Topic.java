@@ -60,6 +60,10 @@ public class Topic {
         this.replyList = replyList;
     }
 
+    public Topic(Integer id) {
+        this.id = id;
+    }
+
     public Topic() {
 
     }

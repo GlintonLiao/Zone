@@ -18,6 +18,11 @@ public class UserBasicServiceImpl implements UserBasicService {
     }
 
     @Override
+    public UserBasic getUserBasicById(Integer id) {
+        return userBasicDAO.getUserBasicById(id);
+    }
+
+    @Override
     public List<UserBasic> getFriendList(UserBasic userBasic) {
         List<UserBasic> userBasicList = userBasicDAO.getUserBasicList(userBasic);
         List<UserBasic> friendList = new ArrayList<>(userBasicList.size());
