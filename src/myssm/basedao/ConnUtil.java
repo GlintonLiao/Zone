@@ -31,7 +31,6 @@ public class ConnUtil {
             conn = createConn();
             threadLocal.set(conn);
         }
-        System.out.println("已连接");
         return threadLocal.get();
     }
     
