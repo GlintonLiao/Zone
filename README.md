@@ -177,11 +177,11 @@
       
 4. 开发具体的业务模块：
    1. 一个具体的业务模块纵向上由几个部分组成：
-   - html 页面
-   - POJO 类
-   - DAO 接口和实现类
-   - Service 接口和实现类
-   - Controller 控制器组件
+      - html 页面
+      - POJO 类
+      - DAO 接口和实现类
+      - Service 接口和实现类
+      - Controller 控制器组件
    2. 如果 html 页面有 thymeleaf 表达式，一定不能够直接访问，必须要经过 `PageController`
    3. 在 `applicationContext.xml` 中配置 DAO、Service、Controller，以及三者之间的依赖关系
    4. DAO 实现类中，继承 `BaseDAO`，然后实现具体的接口, 需要注意，`BaseDAO` 后面的泛型不能写错。
@@ -226,13 +226,13 @@
       }
       ```
    7. `DispatcherServlet` 中步骤大致分为：
-         0. 从 `application` 作用域获取 IOC 容器
-         1. 解析 `servletPath`，在 IOC 容器中寻找对应的 `Controller` 组件
-         2. 准备 `operate` 指定的方法所要求的参数
-         3. 调用 `operate` 指定的方法
-         4. 接收到执行 `operate` 指定的方法的返回值，对返回值进行处理 - 视图处理
-   8. 为什么 `DispatcherServlet` 能够从 `application` 作用域获取到 IOC 容器？
+      1. 从 `application` 作用域获取 IOC 容器
+      2. 解析 `servletPath`，在 IOC 容器中寻找对应的 `Controller` 组件
+      3. 准备 `operate` 指定的方法所要求的参数
+      4. 调用 `operate` 指定的方法
+      5. 接收到执行 `operate` 指定的方法的返回值，对返回值进行处理 - 视图处理
+      6. 为什么 `DispatcherServlet` 能够从 `application` 作用域获取到 IOC 容器？
    
-      `ContextLoaderListener` 在容器启动时会执行初始化任务，而它的操作就是：
+   8. `ContextLoaderListener` 在容器启动时会执行初始化任务，而它的操作就是：
       1. 解析 IOC 的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入
       2. 将 IOC 容器保存到 `application` 作用域
