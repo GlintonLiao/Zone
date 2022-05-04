@@ -1,0 +1,37 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="myssm 0.1">
+    <output-path>$PROJECT_DIR$/out/artifacts/myssm_0_1</output-path>
+    <root id="archive" name="myssm 0.1.jar">
+      <element id="directory" name="myssm">
+        <element id="directory" name="basedao">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/basedao/BaseDAO.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/basedao/ConnUtil.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/basedao/DAOException.class" />
+        </element>
+        <element id="directory" name="filters">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/filters/CharacterEncodingFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/filters/OpenSessionInViewFilter.class" />
+        </element>
+        <element id="directory" name="ioc">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/ioc/BeanFactory.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/ioc/ClassPathXmlApplicationContext.class" />
+        </element>
+        <element id="directory" name="listeners">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/listeners/ContextLoaderListener.class" />
+        </element>
+        <element id="directory" name="myspringmvc">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/myspringmvc/DispatcherServlet.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/myspringmvc/DispatcherServletException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/myspringmvc/PageController.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/myspringmvc/ViewBaseServlet.class" />
+        </element>
+        <element id="directory" name="trans">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/trans/TransactionManager.class" />
+        </element>
+        <element id="directory" name="util">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/Zone/myssm/util/StringUtil.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
