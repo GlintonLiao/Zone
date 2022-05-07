@@ -54,13 +54,13 @@
 
 ## 日志详情页面实现
 
-1) 已知 topic 的 id，需要根据 topic 的 id 获取特定 topic
-2) 获取这个 topic 关联的所有的回复
+1) 已知 `topic` 的 `id`，需要根据 `topic` 的 `id` 获取特定 `topic`
+2) 获取这个 `topic` 关联的所有的回复
 3) 如果某个回复有主人回复，需要查询出来
-   - 在 TopicController 中获取指定的 topic
-   - 具体这个 topic 中关联多少个 Reply，由 ReplyService 内部实现
-4) 获取到的 topic 中的 author 只有 id，那么需要在 topicService 的 getTopic 方法中封装，在查询 topic 本身信息时，同时调用 userBasicService 中的获取 userBasic 方法，给 author 属性赋值
-5) 同理，在 reply 类中也有 author，而且这个 author 也是只有 id，那么我们也需要根据 id 查询得到 author，最后设置关联
+   - 在 `TopicController` 中获取指定的 `topic`
+   - 具体这个 `topic` 中关联多少个 `Reply`，由 `ReplyService` 内部实现
+4) 获取到的 `topic` 中的 `author` 只有 `id`，那么需要在 `topicService` 的 `getTopic()` 方法中封装，在查询 `topic` 本身信息时，同时调用 `userBasicService` 中的获取 `userBasic` 方法，给 `author` 属性赋值
+5) 同理，在 `reply` 类中也有 `author`，而且这个 `author` 也是只有 `id`，那么我们也需要根据 `id` 查询得到 `author`，最后设置关联
 
 ## 删除回复
 
@@ -98,19 +98,24 @@
    String dateStr2 = sdf.format(date2);
    ```
 
-2. thymeleaf 中使用 #dates 这个公共的内置对象
+2. thymeleaf 中使用 `#dates` 这个公共的内置对象
 
    ```html
    ${#dates.format(topic.topicDate ,'yyyy-MM-dd HH:mm:ss')}
    ```
 
-3. 系统启动时，我们访问的页面是： 
+3. 系统启动时，我们访问的页面是：
+   ```
    http://localhost:8080/pro23/page.do?operate=page&page=login
-   为什么不是： http://localhost:8080/pro23/login.html  ?
-   答： 如果是后者，那么属于直接访问静态页面。那么页面上的 thymeleaf 表达式（标签）浏览器是不能识别的
-   我们访问前者的目的其实就是要执行 ViewBaseServlet 中的 processTemplate()
+   ```
+   为什么不是： 
+   ```
+   http://localhost:8080/pro23/login.html
+   ```
+   答：如果是后者，那么属于直接访问静态页面。那么页面上的 thymeleaf 表达式（标签）浏览器是不能识别的
+   我们访问前者的目的其实就是要执行 `ViewBaseServlet` 中的 `processTemplate()`
 
-4. http://localhost:8080/pro23/page.do?operate=page&page=login 访问这个URL，执行的过程是什么样的？
+4. `http://localhost:8080/pro23/page.do?operate=page&page=login` 访问这个URL，执行的过程是什么样的？
    
    ```
    答：
@@ -144,8 +149,8 @@
         当前，返回 "login"，不带前缀
         那么执行 `super.processTemplate("login",request,response);`
    10) 此时 `ViewBaseServlet` 中的 `processTemplate` 方法会执行，效果是：
-       + 在 "login" 这个字符串前面拼接 "/"  (其实就是配置文件中 view-prefix 配置的值)
-       + 在 "login" 这个字符串后面拼接 ".html" (其实就是配置文件中 view-suffix 配置的值)
+       + 在 "login" 这个字符串前面拼接 "/"  (其实就是配置文件中 `view-prefix` 配置的值)
+       + 在 "login" 这个字符串后面拼接 ".html" (其实就是配置文件中 `view-suffix` 配置的值)
        最后进行服务器转发
 
 ## JavaWeb 整体框架
@@ -194,10 +199,10 @@
       - 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的 `service`，而不是深入到其他模块的 `DAO` 细节
    6. `Controller` 类的编写规则
       - 在 `applicationContext.xml` 中配置 `Controller`
-         ```html
-         <bean id="user" class="com.atguigu.qqzone.controllers.UserController>
-         ```
-      那么，用户在前端发请求时，对应的 `servletpath` 就是   /user.do   , 其中的 “user” 就是对应此处的 bean 的 id 值
+      ```html
+        <bean id="user" class="com.atguigu.qqzone.controllers.UserController>
+      ```
+      那么，用户在前端发请求时，对应的 `servletpath` 就是 `/user.do`, 其中的 `“user”` 就是对应此处的 `bean` 的 `id` 值
       - 在 `Controller` 中设计的方法名需要和 `operate` 的值一致
       ```java
       public String login(String loginId , String pwd , HttpSession session){
